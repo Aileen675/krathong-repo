@@ -1,0 +1,11 @@
+{
+  "name": "loy-krathong-online",
+  "version": "1.0.0",
+  "description": "เว็บลอยกระทงออนไลน์ เลือกแบบกระทง ใส่ชื่อ และคำอธิษฐาน",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=16" },
+  "license": "MIT"
+}

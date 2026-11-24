@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ลอยกระทงออนไลน์</title>
+  <meta name="description" content="ลอยกระทงออนไลน์ เลือกแบบกระทง ใส่ชื่อ และอธิษฐานให้ลอยไปตามสายน้ำ">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sky" id="sky" aria-hidden="true">
+    <div class="moon"></div>
+  </div>
+
+  <header class="top">
+    <h1>ลอยกระทงออนไลน์</h1>
+    <p class="count">ลอยไปแล้ว <strong id="total">0</strong> ใบ</p>
+  </header>
+
+  <main class="panel" aria-label="สร้างกระทง">
+    <fieldset class="designs">
+      <legend>เลือกแบบกระทง</legend>
+      <div id="designList" class="design-list"></div>
+    </fieldset>
+
+    <label class="field">
+      <span>ชื่อของคุณ</span>
+      <input id="nameInput" type="text" maxlength="20" placeholder="เช่น น้องบัว" autocomplete="off">
+    </label>
+
+    <label class="field">
+      <span>คำอธิษฐาน <small id="wishCount">0/80</small></span>
+      <textarea id="wishInput" maxlength="80" rows="3" placeholder="ขอให้มีความสุข สุขภาพแข็งแรง..."></textarea>
+    </label>
+
+    <p id="error" class="error" role="alert" hidden></p>
+    <button id="launchBtn" class="launch" type="button">ลอยกระทง</button>
+  </main>
+
+  <section class="river" id="river" aria-label="สายน้ำ">
+    <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path class="w1" d="M0,40 C240,10 480,70 720,40 C960,10 1200,70 1440,40 L1440,120 L0,120 Z"/>
+      <path class="w2" d="M0,60 C240,90 480,30 720,60 C960,90 1200,30 1440,60 L1440,120 L0,120 Z"/>
+    </svg>
+  </section>
+
+  <aside class="log" aria-label="คำอธิษฐานล่าสุด">
+    <h2>คำอธิษฐานล่าสุด</h2>
+    <ul id="logList"><li class="empty">ยังไม่มีกระทงลอย ลองลอยใบแรกได้เลย</li></ul>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>

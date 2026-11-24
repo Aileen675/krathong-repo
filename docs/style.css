@@ -1,0 +1,146 @@
+:root {
+  --night-top: #0b1030;
+  --night-bottom: #1d2a5c;
+  --water: #0e2a52;
+  --water-2: #143a6b;
+  --glow: #ffd36b;
+  --ink: #f4efe2;
+  --panel: rgba(12, 18, 48, .78);
+  --line: rgba(255, 211, 107, .35);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: 'Sarabun', system-ui, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(var(--night-top), var(--night-bottom) 60%, var(--water) 60%);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ---------- ท้องฟ้า ---------- */
+.sky { position: fixed; inset: 0 0 40% 0; pointer-events: none; }
+.star {
+  position: absolute; width: 2px; height: 2px; border-radius: 50%;
+  background: #fff; opacity: .8; animation: twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle { 50% { opacity: .2; } }
+.moon {
+  position: absolute; right: 8%; top: 10%; width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffbe8, #f6e6a8 70%);
+  box-shadow: 0 0 60px 20px rgba(255, 238, 170, .35);
+}
+
+/* ---------- หัวเรื่อง ---------- */
+.top { position: relative; z-index: 3; padding: 20px 24px 0; }
+.top h1 { font-family: 'Mali', cursive; font-size: clamp(1.8rem, 5vw, 3rem); margin: 0; color: var(--glow); text-shadow: 0 0 18px rgba(255, 211, 107, .5); }
+.count { margin: 4px 0 0; opacity: .85; }
+
+/* ---------- แผงควบคุม ---------- */
+.panel {
+  position: relative; z-index: 3;
+  width: min(380px, calc(100% - 32px));
+  margin: 16px 24px 0;
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+}
+fieldset { border: 0; margin: 0 0 12px; padding: 0; }
+legend { font-weight: 600; margin-bottom: 8px; }
+.design-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.design-list label { cursor: pointer; text-align: center; font-size: .78rem; }
+.design-list input { position: absolute; opacity: 0; }
+.design-list .thumb {
+  display: block; border-radius: 12px; padding: 4px; border: 2px solid transparent;
+  background: rgba(255, 255, 255, .05); transition: border-color .15s, background .15s;
+}
+.design-list input:checked + .thumb { border-color: var(--glow); background: rgba(255, 211, 107, .14); }
+.design-list input:focus-visible + .thumb { outline: 2px solid #fff; outline-offset: 2px; }
+.design-list svg { width: 100%; height: auto; display: block; }
+
+.field { display: block; margin-bottom: 12px; }
+.field span { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 4px; }
+.field small { font-weight: 400; opacity: .7; }
+input[type=text], textarea {
+  width: 100%; padding: 10px 12px; font: inherit; color: var(--ink);
+  background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .25); border-radius: 10px;
+  resize: vertical;
+}
+input[type=text]:focus, textarea:focus { outline: 2px solid var(--glow); border-color: transparent; }
+.error { color: #ffb4a8; margin: 0 0 8px; }
+.launch {
+  width: 100%; padding: 12px; font: 600 1.1rem 'Mali', cursive; cursor: pointer;
+  color: #3a2300; background: linear-gradient(#ffe08a, #ffb940);
+  border: 0; border-radius: 12px; box-shadow: 0 0 20px rgba(255, 185, 64, .4);
+}
+.launch:hover { filter: brightness(1.06); }
+.launch:active { transform: translateY(1px); }
+.launch:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ---------- แม่น้ำ ---------- */
+.river {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 40%;
+  background: linear-gradient(var(--water), #091c3b);
+  z-index: 2; overflow: hidden;
+}
+.waves { position: absolute; top: -2px; left: 0; width: 200%; height: 70px; animation: slide 14s linear infinite; }
+.waves .w1 { fill: var(--water-2); opacity: .8; }
+.waves .w2 { fill: var(--water); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ---------- กระทงที่ลอย ---------- */
+.kra {
+  position: absolute; left: 0; width: 110px;
+  animation: drift var(--dur, 45s) linear forwards;
+  cursor: pointer;
+}
+@keyframes drift {
+  from { transform: translateX(-160px); }
+  to   { transform: translateX(calc(100vw + 160px)); }
+}
+.kra-inner { animation: bob 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-5px) rotate(3deg); }
+}
+.kra svg { width: 100%; display: block; filter: drop-shadow(0 0 14px rgba(255, 190, 80, .55)); }
+.kra .flame { transform-origin: 60px 38px; animation: flicker .5s ease-in-out infinite alternate; }
+@keyframes flicker { from { transform: scale(1, 1); } to { transform: scale(.88, 1.12); } }
+.kra .tag {
+  text-align: center; font-size: .78rem; margin-top: -2px; padding: 1px 8px;
+  background: rgba(0, 0, 0, .35); border-radius: 99px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 110px;
+}
+.bubble {
+  position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+  width: 190px; padding: 8px 10px; font-size: .85rem; line-height: 1.4; text-align: center;
+  background: #fff8e1; color: #3a2a00; border-radius: 12px;
+  opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 5;
+}
+.kra:hover .bubble, .kra:focus .bubble, .kra.show .bubble { opacity: 1; }
+
+/* ---------- รายการคำอธิษฐาน ---------- */
+.log {
+  position: fixed; right: 16px; bottom: 16px; z-index: 4;
+  width: min(300px, calc(100% - 32px)); max-height: 34vh; overflow: auto;
+  padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+}
+.log h2 { font: 600 1rem 'Mali', cursive; margin: 0 0 6px; color: var(--glow); }
+.log ul { list-style: none; margin: 0; padding: 0; font-size: .85rem; }
+.log li { padding: 5px 0; border-top: 1px solid rgba(255, 255, 255, .1); }
+.log li:first-child { border-top: 0; }
+.log li b { color: var(--glow); }
+.log .empty { opacity: .7; }
+
+@media (max-width: 700px) {
+  .panel { margin: 12px 16px 0; }
+  .log { display: none; }
+  .moon { width: 60px; height: 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .star, .waves, .kra-inner, .kra .flame { animation: none; }
+}
